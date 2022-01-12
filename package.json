@@ -1,0 +1,22 @@
+{
+  "name": "tetris",
+  "version": "1.0.0",
+  "description": "俄罗斯方块控制台字符版",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./app/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaon/tetris.git"
+  },
+  "author": "zhao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhaon/tetris/issues"
+  },
+  "homepage": "https://github.com/zhaon/tetris#readme",
+  "dependencies": {
+    "chalk": "^5.0.0"
+  }
+}
