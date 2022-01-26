@@ -1,5 +1,6 @@
 import Ground from './Ground.js';
-import Block from './Block.js';
+import Block from './block/Block.js';
+import OneBlock from './block/OneBlock.js';
 
 class Game {
 
@@ -23,6 +24,10 @@ class Game {
 
     start() {
 
+       
+        setInterval(() => {
+
+        }, this._speed * 1000)
     }
 
     quit() {

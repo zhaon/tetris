@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "俄罗斯方块控制台字符版",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "start": "node ./app/main.js"
   },

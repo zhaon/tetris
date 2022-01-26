@@ -1,13 +1,14 @@
+import Color from "./Color.js";
 class Point {
 
-    constructor(x = -1, y = -1, color = null) {
+    constructor(x = 0, y = 0, color = null) {
         this._x = x;
         this._y = y;
         this._color = color;
     }
 
-    _x = -1;
-    _y = -1;
+    _x = 0;
+    _y = 0;
     _color = null;
 
     getX() {
