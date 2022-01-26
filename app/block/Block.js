@@ -26,22 +26,27 @@ class Block {
         }
     }
 
-    moveToLeft(offset = 1) {
-        _x -= offset;
+    moveToPoint(x, y) {
+        this._x = x;
+        this._y = y;
     }
 
-    moveToRight(offset = 1) {
-        _x += offset;
+    moveToLeft(step = 1) {
+        this._x -= step >= 0 ? step : 0;
     }
 
-    moveToDown(offset = 1) {
-        _y += offset;
+    moveToRight(step = 1) {
+        this._x += step >= 0 ? step : 0;
+    }
+
+    moveToDown(step = 1) {
+        this._y += step >= 0 ? step : 0;
     }
 
     rotate() {
         for (let p of this._points) {
-            p.x = p.y;
-            p.y = 0 - p.x;
+            p.setX(p.getY());
+            p.setY(0 - p.getX());
         }
     }
 
