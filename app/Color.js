@@ -1,4 +1,5 @@
 const Color = {
+    GRAY: -1,
     BLUE: 0,
     RED: 1,
     YELLOW: 2,

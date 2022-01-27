@@ -1,6 +1,8 @@
+import Color from './Color.js';
+
 class Point {
 
-    constructor(x = 0, y = 0, color = null) {
+    constructor(x = 0, y = 0, color = Color.GRAY) {
         this._x = x;
         this._y = y;
         this._color = color;

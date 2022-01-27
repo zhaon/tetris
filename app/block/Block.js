@@ -11,7 +11,7 @@ class Block {
     _x = 0;
     _y = 0;
 
-    getPoints() {
+    getActualPoints() {
         let absolutePoints = [];
         for (let p of this._points) {
             absolutePoints.push(new Point(this._x + p.getX(), this._y + p.getY(), p.getColor()));
@@ -31,16 +31,20 @@ class Block {
         this._y = y;
     }
 
-    moveToLeft(step = 1) {
-        this._x -= step >= 0 ? step : 0;
+    moveLeft() {
+        this._x -= 1;
     }
 
-    moveToRight(step = 1) {
-        this._x += step >= 0 ? step : 0;
+    moveRight() {
+        this._x += 1;
     }
 
-    moveToDown(step = 1) {
-        this._y += step >= 0 ? step : 0;
+    moveUp() {
+        this._y -= 1;
+    }
+
+    moveDown() {
+        this._y += 1;
     }
 
     rotate() {

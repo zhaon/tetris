@@ -8,8 +8,8 @@ class MirroringSevenBlock extends Block {
         super(x, y);
         this._points = [
             new Point(-1, 0, color),
-            new Point(-1, -1, color),
-            new Point(0, -1, color),
+            new Point(-1, 1, color),
+            new Point(0, 1, color),
             new Point(1, 1, color)
         ];
     }
