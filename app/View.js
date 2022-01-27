@@ -21,18 +21,20 @@ class View {
             case Color.YELLOWBRIGHT:
                 return chalk.bgYellowBright(content);
             default:
-                return chalk.bgGray(content);
+                return content;
         }
     }
     static draw(ground, level, score, nextBlock) {
         console.clear();
+        console.log('-------------------------------');
         for (let row of ground.getMatrix()) {
             let line = [];
             for (let p of row) {
                 line.push(this._getColor(p.getColor(), '  '));
             }
-            console.log(line.join(' ') + '\n');
+            console.log('|' + line.join(' ') + '|' + '\n');
         }
+        console.log('-------------------------------');
     }
 
 }

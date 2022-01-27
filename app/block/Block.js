@@ -49,8 +49,10 @@ class Block {
 
     rotate() {
         for (let p of this._points) {
-            p.setX(p.getY());
-            p.setY(0 - p.getX());
+            let x = 0 - p.getY();
+            let y = p.getX();
+            p.setX(x);
+            p.setY(y);
         }
     }
 

@@ -15,7 +15,6 @@ class Ground {
         this._width = w;
         this._pile = new Pile();
         this._activeBlock = this._randomBlock();
-
         this._nextBlock = this._randomBlock();
     }
 
@@ -27,27 +26,27 @@ class Ground {
 
     _randomBlock() {
         let block = null;
-        let randomNum = Math.floor((Math.random() * 6) + 1);
+        let randomNum = Math.round(Math.random() * 6) + 1;
         switch (randomNum) {
-            case 0:
+            case 1:
                 block = new OneBlock();
                 break;
-            case 1:
+            case 2:
                 block = new TBlock();
                 break;
-            case 2:
+            case 3:
                 block = new ZBlock();
                 break;
-            case 3:
+            case 4:
                 block = new MirroringZBlock();
                 break;
-            case 4:
+            case 5:
                 block = new SevenBlock();
                 break;
-            case 5:
+            case 6:
                 block = new MirroringSevenBlock();
                 break;
-            case 6:
+            case 7:
                 block = new StoneBlock();
                 break;
         }
@@ -83,6 +82,7 @@ class Ground {
             for (let p of row) {
                 if (!this._pile.getPoint(p.getX(), p.getY())) {
                     isFull = false;
+                    break;
                 }
             }
             if (isFull) {
@@ -120,7 +120,7 @@ class Ground {
     moveBlockToRight(step = 1) {
         step = step > 0 ? step : 1;
         while (step > 0) {
-            if (this._canMoveLeft(this._activeBlock)) {
+            if (this._canMoveRight(this._activeBlock)) {
                 this._activeBlock.moveRight();
             }
             else {

@@ -4,6 +4,13 @@ class Pile {
 
     reduceRows(yArr) {
         this._points = this._points.filter(p => yArr.indexOf(p.getY()) === -1);
+        for (let y of yArr) {
+            for (let p of this._points) {
+                if (p.getY() < y) {
+                    p.setY(p.getY() + 1);
+                }
+            }
+        }
     }
 
     getTopY() {

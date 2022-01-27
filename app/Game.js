@@ -1,5 +1,6 @@
+import keypress from 'keypress';
 import Ground from './Ground.js';
-import View from './view.js';
+import View from './View.js';
 
 class Game {
 
@@ -21,12 +22,34 @@ class Game {
     }
 
     start() {
-
-        // const ioHook = require('iohook'); ioHook.on("keypress", event => {
-        //     console.log(event); // {keychar: 'f', keycode: 19, rawcode: 15, type: 'keypress'} }); ioHook.start();
+        let Game = this;
+        keypress(process.stdin);
+        process.stdin.on('keypress', function (ch, key) {
+            let allowKeys = ['up', 'down', 'left', 'right', 'space'];
+            if (allowKeys.indexOf(key)) {
+                switch (key.name) {
+                    case 'up':
+                        Game._ground.rotateBlock();
+                        break;
+                    case 'down':
+                        Game._ground.moveBlockToDown() && Game._ground.reduceFullRows();
+                        break;
+                    case 'left':
+                        Game._ground.moveBlockToLeft()
+                        break;
+                    case 'right':
+                        Game._ground.moveBlockToRight()
+                        break;
+                    case 'space':
+                        break;
+                }
+                View.draw(Game._ground, Game._level, Game._score);
+            }
+        });
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
 
         setInterval(() => {
-
             if (!this._ground.moveBlockToDown()) {
                 if (this._ground.isYFull()) {
                     this._isLost = true;
