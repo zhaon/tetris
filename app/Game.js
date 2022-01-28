@@ -23,10 +23,12 @@ class Game {
 
     start() {
         let Game = this;
+        let isAutoDown = true;
         keypress(process.stdin);
         process.stdin.on('keypress', function (ch, key) {
             let allowKeys = ['up', 'down', 'left', 'right', 'space'];
             if (allowKeys.indexOf(key)) {
+                isAutoDown = false;
                 switch (key.name) {
                     case 'up':
                         Game._ground.rotateBlock();
@@ -43,22 +45,25 @@ class Game {
                     case 'space':
                         break;
                 }
-                View.draw(Game._ground, Game._level, Game._score);
+                View.render(Game._ground, Game._level, Game._score);
+                isAutoDown = true;
             }
         });
         process.stdin.setRawMode(true);
         process.stdin.resume();
 
         setInterval(() => {
-            if (!this._ground.moveBlockToDown()) {
-                if (this._ground.isYFull()) {
-                    this._isLost = true;
+            if (isAutoDown) {
+                if (!this._ground.moveBlockToDown()) {
+                    if (this._ground.isYFull()) {
+                        this._isLost = true;
+                    }
+                    else {
+                        this._ground.reduceFullRows();
+                    }
                 }
-                else {
-                    this._ground.reduceFullRows();
-                }
+                View.render(this._ground, this._level, this._score);
             }
-            View.draw(this._ground, this._level, this._score);
 
         }, this._level * 1000)
     }

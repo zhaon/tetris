@@ -1,8 +1,10 @@
 import chalk from "chalk";
 import Color from "./Color.js";
-
+import ansiEscapes from "ansi-escapes";
 
 class View {
+
+    _curMatrix = [];
 
     static _getColor(color, content) {
         switch (color) {
@@ -24,17 +26,18 @@ class View {
                 return content;
         }
     }
-    static draw(ground, level, score, nextBlock) {
-        console.clear();
-        console.log('-------------------------------');
+    static render(ground, level, score, nextBlock) {
+
+        process.stdout.write(ansiEscapes.clearTerminal);
+        process.stdout.write('+--------------------+\n');
         for (let row of ground.getMatrix()) {
             let line = [];
             for (let p of row) {
                 line.push(this._getColor(p.getColor(), '  '));
             }
-            console.log('|' + line.join(' ') + '|' + '\n');
+            process.stdout.write('|' + line.join('') + '|' + '\n');
         }
-        console.log('-------------------------------');
+        process.stdout.write('+--------------------+\n');
     }
 
 }
