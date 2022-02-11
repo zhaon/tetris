@@ -96,7 +96,7 @@ class Ground {
     }
 
     isYFull() {
-        return this._pile.getTopY() === 0 ? true : false;
+        return this._pile.getTopY() <= 0 ? true : false;
     }
 
     setActiveBlock(block) {
@@ -178,6 +178,12 @@ class Ground {
             rows.push(columns);
         }
         return rows;
+    }
+
+    getNextBlock() {
+        let obj = Object.assign({}, this._nextBlock);
+        obj.__proto__ = this._nextBlock.__proto__;
+        return obj;
     }
 
 }

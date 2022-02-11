@@ -12,68 +12,93 @@ class Game {
     _level = 1;
     _score = 0;
     _isLost = false;
+    _isPause = false;
 
-    getScore() {
-
-    }
-
-    isLost() {
-        return this._isLost;
-    }
-
-    start() {
+    async start() {
         let Game = this;
-        let isAutoDown = true;
         keypress(process.stdin);
         process.stdin.on('keypress', function (ch, key) {
             let allowKeys = ['up', 'down', 'left', 'right', 'space'];
             if (allowKeys.indexOf(key)) {
-                isAutoDown = false;
                 switch (key.name) {
                     case 'up':
-                        Game._ground.rotateBlock();
+                        !Game._isLost && !Game._isPause && Game._ground.rotateBlock();
                         break;
                     case 'down':
-                        Game._ground.moveBlockToDown() && Game._ground.reduceFullRows();
+                        !Game._isLost && !Game._isPause && Game._ground.moveBlockToDown()
                         break;
                     case 'left':
-                        Game._ground.moveBlockToLeft()
+                        !Game._isLost && !Game._isPause && Game._ground.moveBlockToLeft()
                         break;
                     case 'right':
-                        Game._ground.moveBlockToRight()
+                        !Game._isLost && !Game._isPause && Game._ground.moveBlockToRight()
                         break;
                     case 'space':
+                        Game._isPause = !Game._isPause;
+                        break;
+                    case 'escape':
+                        if (Game._isLost) {
+                            Game._ground = new Ground();
+                            Game._level = 1;
+                            Game._score = 0;
+                            Game._isLost = false;
+                            Game._isPause = false;
+                        }
                         break;
                 }
-                View.render(Game._ground, Game._level, Game._score);
-                isAutoDown = true;
+                Game._gameLogic();
             }
         });
         process.stdin.setRawMode(true);
         process.stdin.resume();
 
-        setInterval(() => {
-            if (isAutoDown) {
-                if (!this._ground.moveBlockToDown()) {
-                    if (this._ground.isYFull()) {
-                        this._isLost = true;
-                    }
-                    else {
-                        this._ground.reduceFullRows();
-                    }
-                }
-                View.render(this._ground, this._level, this._score);
+        while (true) {
+            if (!this._isLost && !this._isPause) {
+                this._ground.moveBlockToDown();
+                this._gameLogic();
+            }
+            await this._sleep((5 - this._level) * 300);
+        }
+    }
+
+    _gameLogic() {
+        if (this._ground.isYFull()) {
+            this._isLost = true;
+        }
+        else {
+            let reduceRows = this._ground.reduceFullRows();
+
+            let score = 0;
+            if (reduceRows.length < 2) {
+                score = reduceRows.length * 100
+            }
+            else if (reduceRows.length >= 2 && reduceRows.length < 5) {
+                score += reduceRows.length * 100 + reduceRows.length * 100 * 0.5
+            }
+            else if (reduceRows.length >= 5) {
+                score += reduceRows.length * 100 + reduceRows.length * 100 * 0.8
+            }
+            this._score += score;
+
+            if (this._score < 2000) {
+                this._level = 1;
+            }
+            if (this._score >= 2000 && this._score < 5000) {
+                this._level = 2;
+            }
+            else if (this._score >= 5000 && this._score < 10000) {
+                this._level = 3;
+            }
+            else if (this._score >= 10000) {
+                this._level = 4;
             }
 
-        }, this._level * 1000)
+        }
+        View.render(this._ground, this._level, this._score, this._isLost, this._isPause);
     }
 
-    quit() {
-
-    }
-
-    pause() {
-
+    _sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
     }
 
 }
