@@ -85,11 +85,17 @@ class View {
 
             if (this._curScore !== score) {
                 process.stdout.write(ansiEscapes.cursorTo(23, 2));
+                process.stdout.write("        ");
+                process.stdout.write(ansiEscapes.cursorTo(23, 2));
                 process.stdout.write(score.toString());
+                this._curScore = score;
             }
             if (this._curLevel !== level) {
                 process.stdout.write(ansiEscapes.cursorTo(23, 4));
+                process.stdout.write("        ");
+                process.stdout.write(ansiEscapes.cursorTo(23, 4));
                 process.stdout.write(level.toString());
+                this._curLevel = level;
             }
 
             if (this._curNextBlock) {

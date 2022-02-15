@@ -18,7 +18,7 @@ class Game {
         let Game = this;
         keypress(process.stdin);
         process.stdin.on('keypress', function (ch, key) {
-            let allowKeys = ['up', 'down', 'left', 'right', 'space'];
+            let allowKeys = ['up', 'down', 'left', 'right', 'space', 'escape'];
             if (allowKeys.indexOf(key)) {
                 switch (key.name) {
                     case 'up':
@@ -43,6 +43,10 @@ class Game {
                             Game._score = 0;
                             Game._isLost = false;
                             Game._isPause = false;
+                        }
+                        if (Game._isPause) {
+                            console.clear();
+                            process.exit();
                         }
                         break;
                 }
