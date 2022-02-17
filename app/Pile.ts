@@ -1,8 +1,11 @@
+import Block from "./block/Block";
+import Point from "./Point";
+
 class Pile {
 
-    _points = [];
+    _points: Array<Point> = [];
 
-    reduceRows(yArr) {
+    reduceRows(yArr: Array<number>) {
         this._points = this._points.filter(p => yArr.indexOf(p.getY()) === -1);
         for (let y of yArr) {
             for (let p of this._points) {
@@ -18,12 +21,12 @@ class Pile {
         return Math.min(...yArr);
     }
 
-    putIn(block) {
+    putIn(block: Block) {
         let points = block.getActualPoints();
         this._points = this._points.concat(points);
     }
 
-    getPoint(x, y) {
+    getPoint(x: number, y: number) {
         return this._points.find(p => p.getX() === x && p.getY() === y);
     }
 

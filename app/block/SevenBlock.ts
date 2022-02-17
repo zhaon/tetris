@@ -1,6 +1,6 @@
-import Color from "../Color.js";
-import Block from "./Block.js";
-import Point from '../Point.js'
+import Color from "../Color";
+import Block from "./Block";
+import Point from '../Point'
 
 class SevenBlock extends Block {
 

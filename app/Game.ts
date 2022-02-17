@@ -1,6 +1,6 @@
 import keypress from 'keypress';
-import Ground from './Ground.js';
-import View from './View.js';
+import Ground from './Ground';
+import View from './View';
 
 class Game {
 
@@ -8,11 +8,11 @@ class Game {
         this._ground = new Ground();
     }
 
-    _ground = null;
-    _level = 1;
-    _score = 0;
-    _isLost = false;
-    _isPause = false;
+    _ground: Ground;
+    _level: number = 1;
+    _score: number = 0;
+    _isLost: boolean = false;
+    _isPause: boolean = false;
 
     async start() {
         let Game = this;
@@ -101,7 +101,7 @@ class Game {
         View.render(this._ground, this._level, this._score, this._isLost, this._isPause);
     }
 
-    _sleep(ms) {
+    _sleep(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
 
