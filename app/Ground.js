@@ -70,8 +70,31 @@ class Ground {
     }
 
     _canRotate(block) {
+        block.rotate();
         let points = block.getActualPoints();
-        return !points.find(p => this._pile.getPoint(p.getY(), 0 - p.getX()));
+        if (points.find(p => this._pile.getPoint(p.getX(), p.getY()))) {
+            block.rotate(1);
+            return false;
+        }
+        else if (points.find(p => p.getX() < 0)) {
+            block.rotate(1);
+            block.moveRight();
+            return true;
+        }
+        else if (points.find(p => p.getX() > this._width - 1)) {
+            block.rotate(1);
+            block.moveLeft();
+            return true;
+        }
+        else if (points.find(p => p.getY() > this._height - 1)) {
+            block.rotate(1);
+            block.moveUp();
+            return true;
+        }
+        else {
+            block.rotate(1);
+            return true;
+        }
     }
 
     reduceFullRows() {

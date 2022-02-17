@@ -47,13 +47,24 @@ class Block {
         this._y += 1;
     }
 
-    rotate() {
-        for (let p of this._points) {
-            let x = 0 - p.getY();
-            let y = p.getX();
-            p.setX(x);
-            p.setY(y);
+    rotate(direction = 0) {
+        if (direction === 0) { // 顺时针
+            for (let p of this._points) {
+                let x = 0 - p.getY();
+                let y = p.getX();
+                p.setX(x);
+                p.setY(y);
+            }
         }
+        else { // 逆时针
+            for (let p of this._points) {
+                let x = p.getY();
+                let y = 0 - p.getX();
+                p.setX(x);
+                p.setY(y);
+            }
+        }
+
     }
 
 }
