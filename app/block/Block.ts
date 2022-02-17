@@ -1,15 +1,15 @@
-import Point from '../Point.js';
+import Point from '../Point';
 
 class Block {
 
-    constructor(x, y) {
+    constructor(x: number, y: number) {
         this._x = x;
         this._y = y;
     }
 
-    _points = [];
-    _x = 0;
-    _y = 0;
+    _points: Array<Point> = [];
+    _x: number = 0;
+    _y: number = 0;
 
     getActualPoints() {
         let absolutePoints = [];
@@ -26,17 +26,17 @@ class Block {
         }
     }
 
-    moveToPoint(x, y) {
+    moveToPoint(x: number, y: number) {
         this._x = x;
         this._y = y;
     }
 
-    moveLeft() {
-        this._x -= 1;
+    moveLeft(step: number = 0) {
+        this._x -= step;
     }
 
-    moveRight() {
-        this._x += 1;
+    moveRight(step: number = 0) {
+        this._x += step;
     }
 
     moveUp() {
@@ -47,7 +47,7 @@ class Block {
         this._y += 1;
     }
 
-    rotate(direction = 0) {
+    rotate(direction: number = 0) {
         if (direction === 0) { // 顺时针
             for (let p of this._points) {
                 let x = 0 - p.getY();

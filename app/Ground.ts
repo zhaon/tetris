@@ -1,12 +1,13 @@
-import Pile from './Pile.js';
-import Point from './Point.js';
-import OneBlock from "./block/OneBlock.js";
-import TBlock from "./block/TBlock.js";
-import ZBlock from "./block/ZBlock.js";
-import MirroringZBlock from "./block/MirroringZBlock.js";
-import SevenBlock from "./block/SevenBlock.js";
-import MirroringSevenBlock from "./block/MirroringSevenBlock.js";
-import StoneBlock from "./block/StoneBlock.js";
+import Pile from './Pile';
+import Point from './Point';
+import OneBlock from "./block/OneBlock";
+import TBlock from "./block/TBlock";
+import ZBlock from "./block/ZBlock";
+import MirroringZBlock from "./block/MirroringZBlock";
+import SevenBlock from "./block/SevenBlock";
+import MirroringSevenBlock from "./block/MirroringSevenBlock";
+import StoneBlock from "./block/StoneBlock";
+import Block from './block/Block';
 
 class Ground {
 
@@ -18,21 +19,21 @@ class Ground {
         this._nextBlock = this._randomBlock();
     }
 
-    _height = 0;
-    _width = 0;
-    _activeBlock = null;
-    _nextBlock = null;
-    _pile = null;
+    _height: number = 0;
+    _width: number = 0;
+    _activeBlock: Block;
+    _nextBlock: Block;
+    _pile: Pile;
 
-    _randomBlock() {
-        let block = null;
+    _randomBlock(): Block {
+        let block: Block = new TBlock();
         let randomNum = Math.round(Math.random() * 6) + 1;
         switch (randomNum) {
             case 1:
                 block = new OneBlock();
                 break;
             case 2:
-                block = new TBlock();
+                //   block = new TBlock();
                 break;
             case 3:
                 block = new ZBlock();
@@ -50,26 +51,26 @@ class Ground {
                 block = new StoneBlock();
                 break;
         }
-        block && block.moveToPoint(4, 0);
+        block.moveToPoint(4, 0);
         return block;
     }
 
-    _canMoveLeft(block) {
+    _canMoveLeft(block: Block) {
         let points = block.getActualPoints();
         return !points.find(p => p.getX() - 1 < 0) && !points.find(p => this._pile.getPoint(p.getX() - 1, p.getY()));
     }
 
-    _canMoveRight(block) {
+    _canMoveRight(block: Block) {
         let points = block.getActualPoints();
         return !points.find(p => p.getX() + 1 > this._width - 1) && !points.find(p => this._pile.getPoint(p.getX() + 1, p.getY()));
     }
 
-    _canMoveDown(block) {
+    _canMoveDown(block: Block) {
         let points = block.getActualPoints();
         return !points.find(p => p.getY() + 1 > this._height - 1) && !points.find(p => this._pile.getPoint(p.getX(), p.getY() + 1));
     }
 
-    _canRotate(block) {
+    _canRotate(block: Block) {
         block.rotate();
         let points = block.getActualPoints();
         if (points.find(p => this._pile.getPoint(p.getX(), p.getY()))) {
@@ -122,11 +123,11 @@ class Ground {
         return this._pile.getTopY() <= 0 ? true : false;
     }
 
-    setActiveBlock(block) {
+    setActiveBlock(block: Block) {
         this._activeBlock = block;
     }
 
-    moveBlockToLeft(step = 1) {
+    moveBlockToLeft(step: number = 1) {
         step = step > 0 ? step : 1;
         while (step > 0) {
             if (this._canMoveLeft(this._activeBlock)) {
@@ -144,7 +145,7 @@ class Ground {
         step = step > 0 ? step : 1;
         while (step > 0) {
             if (this._canMoveRight(this._activeBlock)) {
-                this._activeBlock.moveRight();
+                this._activeBlock.moveRight(step);
             }
             else {
                 return false;
@@ -204,8 +205,8 @@ class Ground {
     }
 
     getNextBlock() {
-        let obj = Object.assign({}, this._nextBlock);
-        obj.__proto__ = this._nextBlock.__proto__;
+        let obj = Object.create(this._nextBlock);
+        Object.assign(obj, this._activeBlock);
         return obj;
     }
 
