@@ -206,7 +206,7 @@ class Ground {
 
     getNextBlock() {
         let obj = Object.create(this._nextBlock);
-        Object.assign(obj, this._activeBlock);
+        Object.assign(obj, this._nextBlock);
         return obj;
     }
 
