@@ -1,5 +1,5 @@
-import Block from "./block/Block";
-import Point from "./Point";
+import Block from "./block/Block.js";
+import Point from "./Point.js";
 
 class Pile {
 

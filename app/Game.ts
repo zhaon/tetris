@@ -1,6 +1,6 @@
 import keypress from 'keypress';
-import Ground from './Ground';
-import View from './View';
+import Ground from './Ground.js';
+import View from './View.js';
 
 class Game {
 

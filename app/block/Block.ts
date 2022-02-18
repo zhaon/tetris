@@ -1,4 +1,4 @@
-import Point from '../Point';
+import Point from '../Point.js';
 
 class Block {
 
@@ -11,8 +11,8 @@ class Block {
     _x: number = 0;
     _y: number = 0;
 
-    getActualPoints() {
-        let absolutePoints = [];
+    getActualPoints(): Array<Point> {
+        let absolutePoints: Array<Point> = [];
         for (let p of this._points) {
             absolutePoints.push(new Point(this._x + p.getX(), this._y + p.getY(), p.getColor()));
         }

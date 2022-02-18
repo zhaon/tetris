@@ -1,13 +1,13 @@
-import Pile from './Pile';
-import Point from './Point';
-import OneBlock from "./block/OneBlock";
-import TBlock from "./block/TBlock";
-import ZBlock from "./block/ZBlock";
-import MirroringZBlock from "./block/MirroringZBlock";
-import SevenBlock from "./block/SevenBlock";
-import MirroringSevenBlock from "./block/MirroringSevenBlock";
-import StoneBlock from "./block/StoneBlock";
-import Block from './block/Block';
+import Pile from './Pile.js';
+import Point from './Point.js';
+import OneBlock from './block/OneBlock.js';
+import TBlock from "./block/TBlock.js";
+import ZBlock from "./block/ZBlock.js";
+import MirroringZBlock from "./block/MirroringZBlock.js";
+import SevenBlock from "./block/SevenBlock.js";
+import MirroringSevenBlock from "./block/MirroringSevenBlock.js";
+import StoneBlock from "./block/StoneBlock.js";
+import Block from './block/Block.js';
 
 class Ground {
 
@@ -182,12 +182,12 @@ class Ground {
         return true;
     }
 
-    getMatrix() {
-        let rows = [];
+    getMatrix(): Array<Array<Point>> {
+        let rows: Array<Array<Point>> = [];
         for (let y = 0; y < this._height; y++) {
-            let columns = [];
+            let columns: Array<Point> = [];
             for (let x = 0; x < this._width; x++) {
-                let blockPoint = null;
+                let blockPoint: Point;
                 if (blockPoint = this._activeBlock.getActualPoints().find(p => p.getX() === x && p.getY() === y)) {
                     columns.push(blockPoint);
                 }

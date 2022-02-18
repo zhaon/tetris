@@ -1,10 +1,10 @@
-import Color from "../Color";
-import Block from "./Block";
-import Point from '../Point'
+import Color from "../Color.js";
+import Block from "./Block.js";
+import Point from '../Point.js'
 
 class MirroringSevenBlock extends Block {
 
-    constructor(x = 0, y = 0, color = Color.BLUE) {
+    constructor(x: number = 0, y = 0, color = Color.BLUE) {
         super(x, y);
         this._points = [
             new Point(-1, 0, color),

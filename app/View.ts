@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import Color from "./Color";
+import Color from "./Color.js";
 import ansiEscapes from "ansi-escapes";
-import Ground from "./Ground";
-import Block from "./block/Block";
+import Ground from "./Ground.js";
+import Block from "./block/Block.js";
 import Point from "./Point.js";
 
 class View {
@@ -11,7 +11,7 @@ class View {
     static _curScore: number = 0;
     static _curLevel: number = 1;
     static _curNextBlock: Block;
-    static stdOut: any = process.stdOut;
+    static stdOut: any = process.stdout;
     static _getColor(color: number, content: string) {
         switch (color) {
             case Color.BLUE:
@@ -33,7 +33,7 @@ class View {
         }
     }
 
-    static render(ground: Ground, level: number, score: number, isLost: number, isPause: boolean) {
+    static render(ground: Ground, level: number, score: number, isLost: boolean, isPause: boolean) {
         this.stdOut.write(ansiEscapes.cursorHide);
         let newMatrix = ground.getMatrix();
         let nextBlock = ground.getNextBlock();
